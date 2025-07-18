@@ -60,7 +60,8 @@ export const escapeHtml = (text: string): string => {
 
 // Validación de token JWT (básica)
 export const validateToken = (token: string): boolean => {
-  return token && token.length > 10 && token.length < 1000;
+  if (!token) return false;
+  return token.length > 10 && token.length < 1000;
 };
 
 // Validación de datos de pago

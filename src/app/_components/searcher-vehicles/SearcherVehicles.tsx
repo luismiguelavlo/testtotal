@@ -12,6 +12,8 @@ import {
 import { countValiditiesWithDiscount } from "@/helpers/calculator-amounts";
 import { useSearch } from "@/hooks/useSearch";
 import {
+  resetSearchResults,
+  resetValidityState,
   setPaymentSumary,
   setTotalValidities,
   setValidities,
@@ -24,7 +26,9 @@ import CustomAlert from "@/components/commons/custom-alert/CustomAlert";
 import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
 import { useGetToken } from "@/hooks/useGetToken";
-import { validatePlateWithRateLimit, sanitizeInput } from "@/utils/security";
+import { useRouter, useSearchParams } from "next/navigation";
+import { getDepartamentalInformation } from "@/helpers/departamental-information";
+import { capitalizeFirstLetter } from "@/helpers/capitalize-first-letter";
 
 interface SearcherVehiclesProps {
   username: string;
@@ -44,51 +48,55 @@ export default function SearcherVehicles({
   const { fetchValidities } = useSearch();
   const dispatch = useDispatch();
   const { getToken } = useGetToken();
+  //const { parameters } = useSelector((state: RootState) => state.validity);
+  const searchParams = useSearchParams();
+  const departmentName = searchParams.get("departmentName");
+  const router = useRouter();
+
+  console.log("client", process.env);
+  console.log("client", process.env.NEXT_PUBLIC_TOTAL_SCI_API_URL);
+  console.log("cre", username);
+  console.log("cre", password);
+  console.log("test", process.env.UAPI);
+  console.log("test", process.env.PAPI);
+
+  /*useEffect(() => {
+    if (parameters.idClientIuva === 0) {
+      router.push("/");
+    }
+    if (parameters.idClientSci === 0) {
+      router.push("/");
+    }
+    if (parameters.idParametro === 0) {
+      router.push("/");
+    }
+  }, [parameters.idClientIuva, parameters.idClientSci, parameters.idParametro]);*/
+
+  const sanitizeInput = (input: string): string => {
+    const trimmedInput = input.trim();
+    return trimmedInput
+      .replace(/\s+/g, "")
+      .replace(/[^a-zA-Z0-9]/g, "")
+      .toUpperCase();
+  };
+
+  const isValidPlate = (plate: string): boolean => {
+    const plateRegex = /^[A-Z0-9]{1,10}$/;
+    return plateRegex.test(plate.trim());
+  };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const rawValue = e.target.value;
-    const sanitizedValue = sanitizeInput(rawValue).toUpperCase();
+    const sanitizedValue = sanitizeInput(rawValue);
     if (sanitizedValue.length <= 10) {
       setValue(sanitizedValue);
     }
   };
 
   const handleClick = async () => {
-    // Validar entrada con rate limiting
-    const validation = validatePlateWithRateLimit(value);
-
-    if (!validation.valid) {
-      setAlertMessage(validation.message || "Error de validación");
-      setAlertTitle("Error de validación");
-      setAlertType("error");
-      setShowAlert(true);
-      posthog.capture("vehicle_search_failed", { reason: "validation_error" });
-      return;
-    }
-
     const cleanValue = sanitizeInput(value);
 
-    dispatch(setValiditiesMunicipalities([]));
-    dispatch(
-      setValidities({
-        departmentalInformation: [],
-        municipalInformation: [],
-      })
-    );
-    dispatch(setTotalValidities(0));
-    dispatch(
-      setPaymentSumary({
-        vehicleTax: 0,
-        municipalTransit: 0,
-        latePaymentInterest: 0,
-        sanction: 0,
-        discount: 0,
-        total: 0,
-        quantityVehiclesTax: 0,
-        quantityMunicipalTransit: 0,
-        quantityDiscount: 0,
-      })
-    );
+    dispatch(resetSearchResults());
 
     if (!cleanValue) {
       setAlertMessage("Por favor ingresa una placa");
@@ -96,6 +104,18 @@ export default function SearcherVehicles({
       setAlertType("error");
       setShowAlert(true);
       posthog.capture("vehicle_search_failed", { reason: "empty_input" });
+      return;
+    }
+
+    if (!isValidPlate(cleanValue)) {
+      setAlertMessage("Formato de placa inválido");
+      setAlertTitle("Error de formato");
+      setAlertType("error");
+      setShowAlert(true);
+      posthog.capture("vehicle_search_failed", {
+        reason: "invalid_plate_format",
+        value: cleanValue,
+      });
       return;
     }
 
@@ -107,7 +127,12 @@ export default function SearcherVehicles({
     const token = await getToken({ username, password });
 
     try {
-      const validities = await fetchValidities(cleanValue, token);
+      const validities = await fetchValidities(
+        cleanValue,
+        token,
+        `${getDepartamentalInformation(departmentName || "")?.id_client_iuva}`,
+        getDepartamentalInformation(departmentName || "")?.idParametro || 0
+      );
 
       if (validities.departmentalInformation === null) {
         setAlertMessage(
@@ -217,31 +242,50 @@ export default function SearcherVehicles({
     }
   };
 
+  const goBack = () => {
+    dispatch(resetValidityState());
+    router.back();
+  };
+
   return (
     <section className={`${styles.searcherVehicles}`}>
-      <h4 className={styles.title}>
-        Añade las vigencias pendientes de tus vehículos
-      </h4>
-      <div className={styles.searcherVehiclesContainer}>
-        <InputText
-          type="text"
-          className={`${styles.input}`}
-          placeholder="Ingresa tu placa"
-          value={value}
-          onChange={handleInputChange}
-          onKeyDown={handleKeyDown}
-          disabled={isLoading}
-          maxLength={10}
-          style={{ textTransform: "uppercase" }}
-        />
-        <Button
-          icon={isLoading ? "pi pi-spinner pi-spin" : "pi pi-search"}
-          rounded
-          aria-label="Filter"
-          className={`${styles.buttonCircle} p-button-primary`}
-          onClick={handleClick}
-          disabled={isLoading}
-        />
+      <div className={styles.vehiclesDesktopContainer}>
+        <div className={styles.headerBackContainerDesktop}>
+          <Button
+            icon="pi pi-arrow-left"
+            className={`${styles.buttonBackCustom} p-button-secondary mr-3`}
+            rounded
+            onClick={goBack}
+            aria-label="Volver"
+          />
+          <h2 className={styles.titleBack}>
+            Trámites de {capitalizeFirstLetter(departmentName || "")}
+          </h2>
+        </div>
+        <h4 className={styles.title}>
+          Añade las vigencias pendientes de tus vehículos
+        </h4>
+        <div className={styles.searcherVehiclesContainer}>
+          <InputText
+            type="text"
+            className={`${styles.input}`}
+            placeholder="Ingresa tu placa"
+            value={value}
+            onChange={handleInputChange}
+            onKeyDown={handleKeyDown}
+            disabled={isLoading}
+            maxLength={10}
+            style={{ textTransform: "uppercase" }}
+          />
+          <Button
+            icon={isLoading ? "pi pi-spinner pi-spin" : "pi pi-search"}
+            rounded
+            aria-label="Filter"
+            className={`${styles.buttonCircle} p-button-primary`}
+            onClick={handleClick}
+            disabled={isLoading}
+          />
+        </div>
       </div>
       {isLoading && <p className={styles.loading}>Cargando...</p>}
       <CustomAlert
