@@ -1,0 +1,65 @@
+.searcherContentCardContainer {
+  min-height: calc(100vh - 35rem);
+  height: 100%;
+  padding-top: 1.2rem;
+  padding-bottom: 1.2rem;
+  padding-left: 1.6rem;
+  padding-right: 1.6rem;
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-height: calc(100vh - 35rem);
+  position: relative;
+  margin-bottom: 1.2rem;
+  margin-top: 1.2rem;
+
+  @media (min-width: 640px) {
+    padding-left: 0rem;
+  }
+
+
+  /* Personalización de la barra de scroll */
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #1e2530; /* Fondo azul oscuro */
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #8dd3c7;
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: #7ac2b6;
+  }
+
+  /* Soporte para Firefox */
+  scrollbar-width: thin;
+  scrollbar-color: #8dd3c7 #1e2530; /* Color del thumb y color del track */
+
+  @media (min-width: 640px) {
+    min-height: calc(100vh - 41rem);
+    max-height: calc(100vh - 41rem);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 40rem;
+    width: 100%;
+  }
+
+  @media (min-width: 1024px) {
+    min-height: calc(100vh - 44rem);
+    max-height: calc(100vh - 44rem);
+  }
+}
+
+.cardWrapper {
+  width: 100%;  
+  /* Asegurarse de que las cards mantengan su tamaño original */
+  & > div {
+    width: 100%;
+  }
+}

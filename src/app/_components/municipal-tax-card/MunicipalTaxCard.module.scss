@@ -1,0 +1,76 @@
+.searcherCard {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(50px);
+  border-radius: 1.6rem;
+  margin-bottom: 1.2rem;
+  width: 100%;
+  
+  :global(.p-card-body) {
+    padding: 1rem;
+  }
+  
+  :global(.p-card-content) {
+    padding: 0;
+  }
+}
+
+.cardContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.leftContent {
+  display: flex;
+  flex-direction: column;
+  max-width: 70%;
+  overflow: hidden;
+}
+
+.title {
+  color: #FFFFA5;
+  margin: 0 0 0.5rem 0;
+  font-size: 1.6rem;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+}
+
+.amount {
+  color: var(--dark-2);
+  font-size: 1.6rem;
+  font-weight: 400;
+  margin: 0;
+  margin-bottom: 0.4rem;
+}
+
+.rightContent {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.identifier {
+  color: white;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.deleteButton {
+  &>* {
+    font-size: 2rem;
+  }
+}
+
+.danger {
+  color: var(--red-3);
+  font-size: 1.2rem;
+  font-weight: 400;
+  margin-top: 0.8rem;
+}
+
+.danger > a {
+  color: var(--main-1)
+}

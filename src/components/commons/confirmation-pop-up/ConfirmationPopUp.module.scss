@@ -1,0 +1,71 @@
+.confirmationPopup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+
+  &__container {
+    background-color: rgba(2, 15, 29, 0.80);
+    backdrop-filter: blur(80px);
+    border-radius: 16px;
+    padding: 24px;
+    width: 90%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  &__title {
+    color: white;
+    font-size: 24px;
+    margin: 0;
+    text-align: center;
+  }
+
+  &__message {
+    color: #8c8c8c;
+    font-size: 16px;
+    margin: 0;
+    text-align: center;
+  }
+
+  &__value {
+    color: white;
+    font-size: 32px;
+    font-weight: bold;
+    text-align: center;
+    margin: 20px 0;
+  }
+
+  &__button {
+    border-radius: 25px;
+    padding: 16px;
+    font-size: 16px;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.2s;
+
+    &:hover {
+      opacity: 0.8;
+    }
+
+    &--accept {
+      background-color: var(--main-1);
+      color: black;
+    }
+
+    &--cancel {
+      background-color: transparent;
+      color: var(--main-1);
+      border: 2px solid var(--main-1);
+    }
+  }
+}

@@ -1,0 +1,30 @@
+services:
+  nextjs:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: nextjs-app
+    ports:
+      - "8080:8080"
+    environment:
+      - NODE_ENV=production
+      - NEXT_PUBLIC_POSTHOG_HOST=${NEXT_PUBLIC_POSTHOG_HOST}
+      - NEXT_PUBLIC_POSTHOG_KEY=${NEXT_PUBLIC_POSTHOG_KEY}
+      - NEXT_PUBLIC_SENTRY_DSN=${NEXT_PUBLIC_SENTRY_DSN}
+      - UAPI=${UAPI}
+      - PAPI=${PAPI}
+      - NEXT_PUBLIC_TOTAL_SCI_API_URL=${NEXT_PUBLIC_TOTAL_SCI_API_URL}
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:8080"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - app-network
+    volumes:
+      - ./logs:/app/logs
+
+networks:
+  app-network:
+    driver: bridge

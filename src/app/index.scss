@@ -1,0 +1,168 @@
+// Importar la fuente Urbanist
+@import url('https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
+
+// Definición del mixin
+@mixin respond($breakpoint) {
+  @if $breakpoint == phone {
+      @media only screen and (max-width: 37.5em) { @content };    //600px
+  }
+  @if $breakpoint == tab-port {
+      @media only screen and (max-width: 56.25em) { @content };     //900px
+  }
+  @if $breakpoint == tab-land {
+      @media only screen and (max-width: 75em) { @content };    //1200px
+  }
+  @if $breakpoint == big-desktop {
+      @media only screen and (min-width: 112.5em) { @content };    //1800
+  }
+}
+
+// Reset básico
+*,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
+}
+
+// Aplicar la fuente a elementos de texto, pero excluir iconos
+body, 
+h1, h2, h3, h4, h5, h6, 
+p, span:not(.pi):not(.material-icons):not(.material-icons-outlined):not(.material-icons-round):not(.material-icons-sharp):not(.material-icons-two-tone), 
+div, button, input, textarea, select, option, 
+label, a, li, td, th {
+    font-family: 'Urbanist', sans-serif;
+}
+
+// Variables para la fuente
+:root {
+  --font-family: 'Urbanist', sans-serif;
+}
+
+// Sobrescribir las variables de PrimeReact
+:root {
+  --font-family: 'Urbanist', sans-serif !important;
+}
+
+body {
+  font-family: 'Urbanist', sans-serif;
+  height: 100vh;
+  color: var(--dark-2);
+  background: linear-gradient(180deg, var(--bg-10) 0%, var(--bg-8) 100%) !important;
+  position: relative; // Para posicionar el pseudo-elemento
+
+  @media (min-width: 640px) {
+    background: var(--bg-10) !important;
+  }
+  
+  @media (min-width: 1024px) {
+    background: var(--bg-10) !important;
+    
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 120rem; // Limitar el ancho a 1200px
+      height: 100%;
+      max-height: 104.5rem;
+      background: url('/imgs/shining-background-image.webp');
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat;
+      z-index: -1; // Colocar detrás del contenido
+      pointer-events: none; // Permitir interacciones con elementos debajo
+    }
+  }
+}
+
+.errorMessage {
+  color: var(--red-1);
+  display: block;
+}
+
+/* Estilos globales para scrollbars */
+* {
+  /* Estilo base para la barra de scroll */
+  &::-webkit-scrollbar {
+    width: 6px;
+    height: 6px; /* Para scrollbars horizontales */
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #11263F;
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: transparent;
+    border-radius: 10px;
+    transition: background 0.3s ease;
+  }
+
+  /* Mostrar la barra solo al hacer hover o al estar scrolleando */
+  &:hover::-webkit-scrollbar-thumb,
+  &:focus::-webkit-scrollbar-thumb,
+  &:active::-webkit-scrollbar-thumb {
+    background: #8dd3c7;
+    border-radius: 10px;
+  }
+
+  /* Firefox */
+  scrollbar-width: thin;
+  scrollbar-color: transparent #1e2530;
+  
+  &:hover, &:focus, &:active {
+    scrollbar-color: #8dd3c7 #1e2530;
+  }
+}
+
+// Configuración de HTML y responsive
+html {
+  // This defines what 1rem is
+  font-size: 62.5%; //1 rem = 10px; 10px/16px = 62.5%
+
+  /*@include respond(tab-land) { // width < 1200?
+      font-size: 56.25%; //1 rem = 9px, 9/16 = 50%
+  }
+
+  @include respond(tab-port) { // width < 900?
+      font-size: 50%; //1 rem = 8px, 8/16 = 50%
+  }*/
+  
+  /*@include respond(big-desktop) {
+      font-size: 75%; //1rem = 12, 12/16
+  }*/
+}
+
+// Sobrescribir específicamente componentes de PrimeReact
+.p-component:not(.pi):not(.material-icons):not(.material-icons-outlined):not(.material-icons-round):not(.material-icons-sharp):not(.material-icons-two-tone) {
+  font-family: 'Urbanist', sans-serif !important;
+}
+
+// Preservar fuentes para iconos - NO modificar estas fuentes
+.pi, 
+.p-button-icon.pi,
+span.pi,
+[class*=" pi-"],
+[class^="pi-"] {
+  font-family: 'primeicons' !important;
+}
+
+// Regla específica para iconos de Google
+.material-icons,
+.material-icons-outlined,
+.material-icons-round,
+.material-icons-sharp,
+.material-icons-two-tone {
+  font-family: 'Material Icons' !important;
+}
+
+// Regla específica para Font Awesome
+i[class^="fa-"],
+i[class*=" fa-"] {
+  font-family: 'FontAwesome' !important;
+}

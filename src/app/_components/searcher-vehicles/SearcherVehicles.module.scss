@@ -1,0 +1,85 @@
+.title {
+  color: var(--dark-6);
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: 300;
+}
+
+.titleBack {
+  color: var(--dark-0);
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.loading {
+  color: var(--dark-6);
+  text-align: center;
+  font-size: 1.6rem;
+  font-weight: 300;
+}
+
+.input {
+  padding: 1.5rem 1.4rem;
+  background-color: #0F243A;
+  border: none;
+  font-size: 1.6rem;
+  width: calc(100% - 6.4rem);
+
+  @media (min-width: 640px) {
+    width: 33.6rem;
+  }
+}
+
+.searcherVehicles {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.buttonCircle {
+  width: 5rem;
+  height: 5rem;
+  padding: 0;
+  background-color: var(--main-1);
+  border: none;
+  color: #11263F;
+  box-shadow: 0px 5px 15px 0px rgba(0, 252, 255, 0.25);
+}
+
+.buttonCircle > * {
+  font-size: 1.5rem;
+}
+
+.vehiclesDesktopContainer {
+  width: 100%;
+  @media (min-width: 640px) {
+    max-width: 40rem;
+  }
+}
+
+.searcherVehiclesContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.2rem;
+  width: 100%;
+
+  @media (min-width: 640px) {
+    max-width: 40rem;
+    width: 100%;
+  }
+}
+
+.headerBackContainerDesktop {
+  display: none;
+  @media (min-width: 1025px) {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    margin-bottom: 0.5rem;
+  }
+}

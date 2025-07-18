@@ -1,0 +1,53 @@
+FROM node:18-alpine AS builder
+
+WORKDIR /app
+
+# Copiar archivos de dependencias
+COPY package*.json ./
+
+# Instalar dependencias
+RUN npm ci
+
+# Copiar código fuente
+COPY . .
+
+# Variables de entorno para el build
+ENV NODE_ENV=production
+ENV NEXT_PUBLIC_POSTHOG_HOST=${NEXT_PUBLIC_POSTHOG_HOST}
+ENV NEXT_PUBLIC_POSTHOG_KEY=${NEXT_PUBLIC_POSTHOG_KEY}
+ENV NEXT_PUBLIC_SENTRY_DSN=${NEXT_PUBLIC_SENTRY_DSN}
+ENV UAPI=${UAPI}
+ENV PAPI=${PAPI}
+ENV NEXT_PUBLIC_TOTAL_SCI_API_URL=${NEXT_PUBLIC_TOTAL_SCI_API_URL}
+
+# Construir la aplicación
+RUN npm run build
+
+# Etapa de producción
+FROM node:18-alpine AS runner
+
+WORKDIR /app
+
+# Crear usuario no root
+RUN addgroup --system --gid 1001 nodejs && \
+    adduser --system --uid 1001 nextjs
+
+# Copiar archivos necesarios
+COPY --from=builder /app/public ./public
+COPY --from=builder /app/.next/standalone ./
+COPY --from=builder /app/.next/static ./.next/static
+
+# Asignar permisos
+RUN chown -R nextjs:nodejs /app
+
+# Cambiar al usuario no root
+USER nextjs
+
+ENV NODE_ENV=production
+ENV PORT=8080
+
+EXPOSE 8080
+
+# Comando de inicio
+CMD ["node", "server.js"]
+

@@ -1,0 +1,41 @@
+.header {
+  width: calc(100% - 3.2rem);
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding-top: 3.2rem;
+  padding-left: 1.6rem;
+  padding-right: 1.6rem;
+  padding-bottom: 1.2rem;
+
+  @media (min-width: 640px) {
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.headerBackContainer {
+  width: 40rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+
+  @media (min-width: 640px) {
+    margin-left: 3rem;
+  }
+}
+
+.buttonCustom {
+  padding: 0.8rem;
+  width: 1.7rem ;
+  height: 1.7rem;
+
+  & > * {
+    font-size: 1.2rem;
+  }
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 600;
+}

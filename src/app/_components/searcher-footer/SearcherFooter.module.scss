@@ -1,0 +1,74 @@
+.searcherFooterContainer {
+  padding-left: 1.6rem;
+  padding-right: 1.6rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding-bottom: 2rem;
+  
+
+  @media (min-width: 640px) {
+    max-width: 40rem;
+    width: 100%;
+  }
+
+  .searcherFooterContainerResult {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+
+    .searcherFooterContainerResultTitle {
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: var(--main-1);
+    }
+
+    .searcherFooterContainerResultPrice {
+      font-size: 2.4rem;
+      font-weight: 600;
+      color: var(--dark-2);
+    }
+  }
+
+  .searcherFooterContainerButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    & > .searcherFooterContainerButtonButton {
+      width: calc(16.55rem - 3.2rem);
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      
+      & > * {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        font-size: 1.8rem;
+        height: 3.2rem;
+        font-weight: 600;
+      }
+    }
+  }
+}
+
+
+
+.recalculateTotalButton {
+  border: none !important;
+  box-shadow: none !important;
+  background-color: transparent !important;
+  margin-right: 1rem;
+  height: 4.5rem;
+  width: 4.5rem;
+  & > * {
+    font-size: 1.6rem;
+    font-weight: 600;
+  }
+}

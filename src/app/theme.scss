@@ -1,0 +1,185 @@
+:root {
+  /* Colores originales */
+  --primary-color: #A5FEFF !important; /* Color principal */
+  --primary-color-text: #ffffff !important; /* Texto de botones */
+  --surface-ground: #121212 !important; /* Fondo general */
+  --surface-card: #1e1e1e !important; /* Fondo de tarjetas */
+  --text-color: #e0e0e0 !important; /* Color de texto */
+  
+  /* Nuevas variables de colores */
+  /* Main */
+  --main-1: #A5FEFF !important;
+  --main-2: #62FAFE !important;
+  --main-3: #1BECF5 !important;
+  --main-4: #073A46 !important;
+  
+  /* Green */
+  --green-1: #DDFAE3 !important;
+  --green-2: #04C759 !important;
+  --green-3: #00550A !important;
+  --green-4: #002A07 !important;
+  
+  /* Blue */
+  --blue-1: #B3DCFF !important;
+  --blue-2: #0673F3 !important;
+  --blue-3: #002862 !important;
+  --blue-4: #011430 !important;
+  
+  /* Red */
+  --red-1: #FEE2E3 !important;
+  --red-2: #F67277 !important;
+  --red-3: #CD2428 !important;
+  --red-4: #440B0B !important;
+  
+  /* Dark */
+  --dark-0: #FFFFFF !important;
+  --dark-2: #F9F9F9 !important;
+  --dark-4: #DCDCDC !important;
+  --dark-5: #B3B3B3 !important;
+  --dark-6: #898989 !important;
+  --dark-8: #5A5A5A !important;
+  --dark-10: #202020 !important;
+  
+  /* Background */
+  --bg-0: #5FB1FF !important;
+  --bg-2: #2B84D8 !important;
+  --bg-4: #004274 !important;
+  --bg-6: #012F56 !important;
+  --bg-8: #001A2E !important;
+  --bg-10: #020F1D !important;
+}
+
+.p-button {
+  padding: 0.8rem 1.2rem;
+  font-size: 1.2rem;
+}
+
+/* Estilos para el botón primario */
+.p-button.p-button-primary {
+  /* Estado normal */
+  border: 1px solid var(--main-1);
+  background: var(--main-1);
+  box-shadow: 0px 5px 15px 0px rgba(0, 252, 255, 0.25);
+  color: #11263F;
+  
+  /* Estado hover */
+  &:hover {
+    border: 1px solid var(--main-2);
+    background: var(--main-2);
+    box-shadow: 0px 5px 15px 0px rgba(0, 252, 255, 0.25);
+  }
+  
+  /* Estado active/pressed */
+  &:active {
+    border: 1px solid var(--main-3);
+    background: var(--main-3);
+    box-shadow: 0px 5px 15px 0px rgba(0, 252, 255, 0.25);
+  }
+  
+  /* Estado disabled */
+  &:disabled, &.p-disabled {
+    border: 1px solid var(--main-4);
+    opacity: 0.7;
+    background: var(--main-4);
+  }
+}
+
+/* Estilos para el botón secundario */
+.p-button.p-button-secondary {
+  /* Estado normal */
+  border: 1px solid var(--main-1);
+  background: rgba(165, 254, 255, 0.01);
+  box-shadow: 0px 5px 15px 0px rgba(0, 252, 255, 0.25);
+  color: var(--main-1);
+  
+  /* Estado hover */
+  &:hover {
+    border: 1px solid var(--main-2);
+    background: rgba(98, 250, 254, 0.04);
+    box-shadow: 0px 5px 15px 0px rgba(0, 252, 255, 0.25);
+  }
+  
+  /* Estado active/pressed */
+  &:active {
+    border: 1px solid var(--main-3);
+    background: rgba(27, 236, 245, 0.16);
+    box-shadow: 0px 5px 15px 0px rgba(0, 252, 255, 0.25);
+  }
+  
+  /* Estado disabled */
+  &:disabled, &.p-disabled {
+    border: 1px solid var(--main-4);
+    opacity: 0.6;
+    background: transparent;
+  }
+}
+
+/* Estilos para el botón danger */
+.p-button.p-button-danger {
+  /* Estado normal */
+  border: none;
+  background: none;
+  color: var(--red-2);
+  box-shadow: none;
+  
+  /* Estado hover */
+  &:hover {
+    border: none;
+    background: rgba(246, 114, 119, 0.04);
+    box-shadow: none;
+  }
+  
+  /* Estado active/pressed */
+  &:active {
+    border: none;
+    background: rgba(246, 114, 119, 0.16);
+    box-shadow: none;
+  }
+  
+  /* Estado disabled */
+  &:disabled, &.p-disabled {
+    border: none;
+    background: none;
+    opacity: 0.6;
+    box-shadow: none;
+  }
+}
+
+/* Estilos para los inputs de PrimeReact */
+.p-inputtext {
+  padding: 1rem 1.4rem;
+  background-color: #0F243A;
+  border: none;
+  font-size: 1.6rem;
+  color: var(--dark-0);
+  
+  &:enabled:focus {
+    box-shadow: 0 0 0 1px var(--main-1);
+    border: none;
+  }
+  
+  &:enabled:hover {
+    border: none;
+  }
+  
+  &.p-invalid.p-component {
+    border: 1px solid var(--red-3);
+  }
+  
+  &::placeholder {
+    color: var(--dark-6);
+  }
+}
+
+/* Estilo para el contenedor del input cuando tiene un icono */
+.p-input-icon-left > .p-inputtext {
+  padding-left: 3rem;
+}
+
+.p-input-icon-right > .p-inputtext {
+  padding-right: 3rem;
+}
+
+
+
+

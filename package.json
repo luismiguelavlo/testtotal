@@ -1,0 +1,36 @@
+{
+  "name": "totalapp",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@next/env": "15.3.2",
+    "@reduxjs/toolkit": "2.8.1",
+    "@sentry/nextjs": "9.17.0",
+    "animate.css": "4.1.1",
+    "axios": "1.9.0",
+    "canvas-confetti": "1.9.3",
+    "framer-motion": "12.10.5",
+    "next": "15.3.2",
+    "posthog-js": "1.240.5",
+    "primeflex": "4.0.0",
+    "primeicons": "7.0.0",
+    "primereact": "10.9.5",
+    "react": "19.0.0",
+    "react-dom": "19.0.0",
+    "react-redux": "9.2.0",
+    "sass": "1.87.0"
+  },
+  "devDependencies": {
+    "@types/canvas-confetti": "1.9.0",
+    "@types/node": "20",
+    "@types/react": "19",
+    "@types/react-dom": "19",
+    "typescript": "5"
+  }
+}
